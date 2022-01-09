@@ -1,4 +1,4 @@
-FROM debian
+FROM alpine
 
 COPY . /stuff
 
