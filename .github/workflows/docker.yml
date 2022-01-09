@@ -3,10 +3,8 @@ name: 'Build and publish docker images (all platforms)'
 on:
   workflow_dispatch:
   push:
-    branches:  # see https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#onpushpull_requestbranchestags
-      - '**'             # matches every branch
-      #- master          # matches 'master' branch
-      #- '!evil-branch'  # excludes 'evil-branch'
+    branches:
+      - '**'  # every branch
     tags:
       - 'v*.*.*'
 
@@ -19,22 +17,14 @@ jobs:
 
       - name: Docker meta
         id: meta
-        uses: docker/metadata-action@v3  # see https://github.com/docker/metadata-action
+        uses: docker/metadata-action@v3
         with:
-          images: dersimn/helloarm-github-workflow  # list of Docker images to use as base name for tags
-          # flavor: |
-          #   # Generate 'latest' tag
-          #   latest=auto
-          #   # Prefix is applied to all tags
-          #   prefix=some-prefix-for-all-tags-
+          images: dersimn/helloarm-github-workflow
           tags: |
-            # Branch Push Event
             type=ref,event=branch
-            # Tag Push Event
             type=semver,pattern={{major}}.{{minor}}.{{patch}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
-            # Generate SHA tag e.g.: sha-ad132f5
             type=sha
 
       - name: Set up QEMU
