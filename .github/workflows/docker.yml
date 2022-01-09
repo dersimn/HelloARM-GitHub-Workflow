@@ -22,11 +22,11 @@ jobs:
         uses: docker/metadata-action@v3  # see https://github.com/docker/metadata-action
         with:
           images: dersimn/helloarm-github-workflow  # list of Docker images to use as base name for tags
-          flavor: |
-            # Generate 'latest' tag
-            #latest=auto
-            # Prefix is applied to all tags
-            #prefix=some-prefix-for-all-tags-
+          # flavor: |
+          #   # Generate 'latest' tag
+          #   latest=auto
+          #   # Prefix is applied to all tags
+          #   prefix=some-prefix-for-all-tags-
           tags: |
             # Branch Push Event
             type=ref,event=branch
