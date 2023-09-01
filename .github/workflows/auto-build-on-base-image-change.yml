@@ -26,4 +26,4 @@ jobs:
 
   trigger-build:
     needs: check-job
-    uses: ./.github/workflows/docker.yaml
+    uses: ./.github/workflows/docker.yml
