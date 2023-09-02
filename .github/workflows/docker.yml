@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
   workflow_call:
   push:
-    branches:
-      - '**'  # every branch
+    # branches:
+    #   - '**'  # every branch
     tags:
       - 'v*.*.*'
 
@@ -22,11 +22,17 @@ jobs:
         with:
           images: dersimn/helloarm-github-workflow
           tags: |
-            type=ref,event=branch
+            # Git Branch
+            #type=ref,event=branch
+            # Git short SHA: sha-ad132f5
+            #type=sha
+            # Semantic Versioning
+            # 1.1.2
             type=semver,pattern={{version}}
+            # 1.1
             type=semver,pattern={{major}}.{{minor}}
-            type=semver,pattern={{major}}
-            type=sha
+            # 1 (disabled if major is zero)
+            type=semver,pattern={{major}},enable=${{ !startsWith(github.ref, 'refs/tags/v0.') }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
