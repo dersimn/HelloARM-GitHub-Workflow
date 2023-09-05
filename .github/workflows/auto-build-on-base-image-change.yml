@@ -16,7 +16,7 @@ jobs:
         uses: lucacome/docker-image-update-checker@v1
         with:
           base-image: library/alpine:latest
-          image: dersimn/helloarm-github-workflow:latest
+          image: library/ubuntu:latest
 
   trigger-build:
     needs: check-job
