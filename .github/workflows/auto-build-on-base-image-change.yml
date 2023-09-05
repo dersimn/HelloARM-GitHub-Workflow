@@ -3,7 +3,7 @@ name: Nightly update check
 on:
   workflow_dispatch:
   schedule:
-    - cron: "14 15 * * *"
+    - cron: "0 16 * * *"
 
 jobs:
   check-job:
