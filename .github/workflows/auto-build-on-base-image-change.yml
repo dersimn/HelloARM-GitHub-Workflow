@@ -8,6 +8,8 @@ on:
 jobs:
   check-job:
     runs-on: ubuntu-latest
+    outputs:
+      needs-updating: ${{ steps.check.outputs.needs-updating }}
     steps:
       - name: Check if update available
         id: check
@@ -16,15 +18,8 @@ jobs:
           base-image: library/alpine:latest
           image: dersimn/helloarm-github-workflow:latest
 
-      - name: Check result
-        run: |
-          echo "Needs updating: ${{ steps.check.outputs.needs-updating }}"
-          if [[ "${{ steps.check.outputs.needs-updating }}" == "false" ]]; then
-            echo "No update needed"
-            exit 1
-          fi
-
   trigger-build:
     needs: check-job
+    if: ${{ needs.check-job.outputs.needs-updating == 'true' }}
     uses: ./.github/workflows/docker.yml
     secrets: inherit
