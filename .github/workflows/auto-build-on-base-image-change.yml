@@ -21,5 +21,9 @@ jobs:
   trigger-build:
     needs: check-job
     if: ${{ needs.check-job.outputs.needs-updating == 'true' }}
-    uses: dersimn/HelloARM-GitHub-Workflow/.github/workflows/docker.yml@v2.5.2
-    secrets: inherit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Invoke workflow without inputs
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: docker.yml
