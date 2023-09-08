@@ -8,8 +8,6 @@ on:
 jobs:
   check-job:
     runs-on: ubuntu-latest
-    outputs:
-      needs-updating: ${{ steps.check.outputs.needs-updating }}
     steps:
       - name: Check if update available
         id: check
@@ -17,13 +15,8 @@ jobs:
         with:
           base-image: library/alpine:latest
           image: library/ubuntu:latest
-
-  trigger-build:
-    needs: check-job
-    if: ${{ needs.check-job.outputs.needs-updating == 'true' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Invoke workflow without inputs
+      - if: ${{ steps.check.outputs.needs-updating }}
+        name: Invoke workflow without inputs
         uses: benc-uk/workflow-dispatch@v1
         with:
           workflow: docker.yml
