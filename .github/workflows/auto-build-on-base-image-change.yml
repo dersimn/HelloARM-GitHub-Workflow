@@ -14,7 +14,7 @@ jobs:
         uses: lucacome/docker-image-update-checker@v1
         with:
           base-image: library/alpine:latest
-          image: library/ubuntu:latest
+          image: dersimn/helloarm-github-workflow
       - if: ${{ steps.check.outputs.needs-updating }}
         name: Invoke workflow without inputs
         uses: benc-uk/workflow-dispatch@v1
